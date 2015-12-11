@@ -24,10 +24,9 @@ select your .zip deployment package (hello-aws-lambda/build/distributions/hello-
 
 4. review your settings and create the function.
 
-//IMAGE
+
 <img src="https://raw.githubusercontent.com/dhanugupta/hello-aws-lamdba/master/aws-lambda-1.png" />
 
-<img src="https://raw.githubusercontent.com/dhanugupta/hello-aws-lamdba/master/aws-lambda-2.png" />
 
 Once your function has been created, you can test it with some sample input, in our case the following JSON string:
 
@@ -41,13 +40,16 @@ When testing the function, you should get the following output:
   "response": "DHANU"
 }
 
-How will it scale?
+<img src="https://raw.githubusercontent.com/dhanugupta/hello-aws-lamdba/master/aws-lambda-2.png" />
+
+
+Scaling?? 
 > There are no fundamental limits to scaling a function. AWS Lambda will dynamically allocate capacity to match the rate of incoming events.
 
-That great, but how much will it cost?
+cost?
 > With AWS Lambda, you pay only for what you use. You are charged based on the number of requests for your functions and the time your code executes. The Lambda free tier includes 1M free requests per month and 400,000 GB-seconds of compute time per month.
 
-Conclusion
+Conclusion:
 > A microservice built and deployed in less than 5 minutes.
 No server, no instance, no container, no app server.
 Just runnable code in the cloud!
