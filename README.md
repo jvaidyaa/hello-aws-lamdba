@@ -36,9 +36,11 @@ When testing the function, you should get the following output:
 
 How will it scale?
 > There are no fundamental limits to scaling a function. AWS Lambda will dynamically allocate capacity to match the rate of incoming events.
+
 That great, but how much will it cost?
 > With AWS Lambda, you pay only for what you use. You are charged based on the number of requests for your functions and the time your code executes. The Lambda free tier includes 1M free requests per month and 400,000 GB-seconds of compute time per month.
 
+Conclusion
 > A microservice built and deployed in less than 5 minutes.
 No server, no instance, no container, no app server.
 Just runnable code in the cloud!
