@@ -15,11 +15,15 @@ Build/Distribution will have the ".zip" file ready for the deployment
 
 Amazon Console
 Next step: let’s create our Lambda function.
-1. signup/signin to https://console.aws.amazon.com,
+1. signup/signin to https://console.aws.amazon.com
+
 2. go to Lambda and create a lambda function called HelloLambda (you can skip the step 1 with nodejs blueprints),
 select your .zip deployment package (hello-aws-lambda/build/distributions/hello-aws-lambda.zip) and enter your handle name org.gradle.HelloController::getHello,
+
 3. create a role by choosing the Basic execution role from the list (if this is your first time, AWS Management Console will create an IAM role called basic_execution_role in your account with an access policy that allows only permission to write logs to CloudWatch Logs),
+
 4. review your settings and create the function.
+
 //IMAGE
 
 Once your function has been created, you can test it with some sample input, in our case the following JSON string:
