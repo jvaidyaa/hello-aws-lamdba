@@ -1,0 +1,43 @@
+apply plugin: 'docker'
+
+configurations {
+    newrelic	// Allow for the copying of the New Relic agent at run time.
+}
+
+def newrelicVersion='3.12.0'
+
+dependencies {
+    newrelic "com.newrelic.agent.java:newrelic-agent:${newrelicVersion}"
+}
+
+
+task copyAgent(type: Copy) {
+    from {
+        configurations.newrelic
+    }
+    into "$buildDir/libs"
+    rename ("newrelic-agent-${newrelicVersion}.jar", 'newrelic.jar')
+    
+}
+
+task buildDocker (type:Docker){
+	push false
+	tag ="docker.obi.aol.com/avocado"
+	dockerfile = file('src/main/scripts/Dockerfile')
+	addFile ("$buildDir/libs/avocado-1.0.war","/usr/local/tomcat/webapps/ROOT.war")
+	//addFile ("$buildDir/libs/newrelic.jar", "/app/newrelic.jar")
+    addFile ("src/main/resources/newrelic.yml", "/app/newrelic.yml")
+	defaultCommand (["catalina.sh", "run"])
+}
+
+buildDocker.dependsOn copyAgent
+
+distDocker {
+    exposePort 8080
+    push true
+    tag = "docker.obi.aol.com/avocado"
+    addFile ("$buildDir/libs/newrelic.jar", "/app/newrelic.jar")
+    addFile ("src/main/resources/newrelic.yml", "/app/newrelic.yml")  
+}
+
+distDocker.dependsOn copyAgent

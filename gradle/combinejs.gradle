@@ -1,0 +1,64 @@
+//apply plugin: 'js'
+
+//apply plugin: org.gradle.api.plugins.tomcat.TomcatPlugin
+
+javascript.source {
+    dev {
+        js {
+            srcDir "src/main/resources/public/js"
+            exclude "*.min.js"
+        }
+    }
+    custom {
+		 js {
+		     srcDir "src/main/resources/public/js"
+		     include "**/*.js"
+		     exclude "*.min.js"
+		     exclude "lib/"
+		     exclude "copy-of-checkout-cart2.js"
+		 }
+	 }
+}
+
+
+
+//Call dynamically created tasks (for each JavaScript file)
+task individualJSMinify(dependsOn: tasks.matching { Task task -> task.name.startsWith("dominify")})
+
+//Dynamically create a task for each JavaScript files
+//Dynamically create a task for each JavaScript files
+javascript.source.custom.js.files.eachWithIndex { jsFile, idx ->
+    tasks.create(name: "dominify${idx}", type: com.eriwen.gradle.js.tasks.MinifyJsTask) {
+    	if(jsFile.getParentFile().getName() != "js"){
+    		source = jsFile
+	        dest = "${minifyOutputDir}/"+jsFile.getParentFile().getName() +"/${jsFile.name}".replaceFirst("\\.js",".min.js")
+	    	closure {
+	        	warningLevel = 'QUIET'
+	        	compilationLevel = 'SIMPLE_OPTIMIZATIONS'
+	    	}
+    	}
+    	else{
+    		source = jsFile
+	        dest = "${minifyOutputDir}/${jsFile.name}".replaceFirst("\\.js",".min.js")
+	    	//outputs.dir "${buildDir}"
+	    	closure {
+	        	warningLevel = 'QUIET'
+	        	compilationLevel = 'SIMPLE_OPTIMIZATIONS'
+	    	}
+    	}
+    }
+}
+
+task combinejs(type: com.eriwen.gradle.js.tasks.CombineJsTask) {
+    source = javascript.source.dev.js.files
+    dest = file("${buildDir}/all.js")
+}
+
+task minifyjs(type: com.eriwen.gradle.js.tasks.MinifyJsTask) {
+    source = combinejs
+    //dest = file("${buildDir}/all-min.js")
+    dest = file("src/main/resources/public/js/all-min.js")
+    closure {
+        warningLevel = 'QUIET'
+    }
+}

@@ -1,0 +1,13 @@
+dependencies {
+        compass "rubygems:compass:0.12.7"
+}
+
+compass {
+    cssDir = file('src/main/resources/public/css')
+    sassDir = file('src/main/resources/public/scss')
+    importPath = files('src/main/resources/public/scss')
+    debugInfo = false
+    noLineComments = true
+    outputStyle = "compressed"
+    trace = true
+}

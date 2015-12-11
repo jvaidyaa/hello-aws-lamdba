@@ -1,0 +1,21 @@
+// Sonar
+
+apply plugin: "sonar-runner"
+
+sonarRunner {
+	sonarProperties {
+		property "sonar.projectName", "avocado"
+		property "sonar.host.url", "http://sonar.obi.aol.com/"
+		property "sonar.jdbc.url", "jdbc:mysql://sonardb.dev.obi.aol.com:3306/sonar"
+		property "sonar.jdbc.driverjavaName", "com.mysql.jdbc.Driver"
+		property "sonar.jdbc.username", "sonar"
+		property "sonar.jdbc.password", "s0nar"
+		property "sonar.sources", "src"
+		property "sonar.jacoco.itReportPath", "build/jacoco/integrationTest.exec"
+		property "sonar.exclusions", "**/*Test*.java,**/com/aol/avocado/application/*.java,**/com/aol/avocado/filter/*.java,**/test/js/setup/*.js,**/js/*.js,**/com/aol/ecommerce/*.java,**/JAXB*.java,**/assets/**/*.js,**/_uac/**.html,**/js/minified/*.js,**/js/clientTest.js,**/js/checkout-cart2.js,**/js/checkout-confirmation.js,**/js/checkout-errors.js,**/js/checkout-cart-invite.js,**/js/checkout-new-user2.js,**/com/aol/avocado/model/*.java,**/com/aol/avocado/order/model/*.java,**/com/aol/avocado/location/model/*.java,**/com/aol/avocado/profile/*.java,**/com/aol/avocado/mobile/model/*.java,**/res/**,**/templates/*.html,**/templates/home/*.html,**/templates/**/*.html"
+		property "sonar.junit.reportsPath", test.reports.junitXml.destination
+		property "sonar.javascript.lcov.reportPath", "build/reports/jscoverage/total-coverage.dat"
+		property "sonar.scm.url", "scm:git:git@stash.ops.aol.com/scm/ccare/avocado.git"
+		property "sonar.buildbreaker.skip", "false"
+	}
+}

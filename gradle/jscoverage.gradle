@@ -1,0 +1,32 @@
+//buildscript {
+//
+//    repositories {
+//        mavenLocal()
+//        mavenCentral()
+//    }
+//
+//    dependencies {
+//        classpath group: 'com.github.timurstrekalov', name: 'gradle-saga-plugin', version: '1.5.0'
+//    }
+//
+//}
+
+//apply plugin: 'saga'
+
+saga {
+    baseDir = './src/main/resources/public'
+    outputDir = new File('build/reports/jscoverage')
+    includes = '**/test/index.html'
+
+    noInstrumentPatterns = [
+        '.+/assets/js/.+\\.js',
+	'.*jquery.*',
+	'.+screenname\\.aol\\.com.*',
+	'.+/js/clientTest\\.js',
+	'.+/js/*-error*'
+    ]
+
+    sourcesToPreload = 'assets/*.js,js/*.js'
+    outputStrategy = 'TOTAL'
+}
+

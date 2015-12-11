@@ -1,0 +1,61 @@
+buildscript {
+    repositories {
+		maven { url "http://cmmaven.cm.aol.com:8081/nexus/content/groups/public" }
+		maven { url 'http://dl.bintray.com/robfletcher/gradle-plugins' }
+    }
+    dependencies {
+
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+project.ext.buildnumber = System.env.BUILD_NUMBER
+import org.apache.tools.ant.filters.*
+
+processResources {
+    filter ReplaceTokens, tokens: [
+        "project.buildnumber": project.getProperty("buildnumber").toString()
+    ]
+}
+
+eclipse {
+  jdt {
+    //if you want to alter the java versions (by default they are configured with gradle java plugin settings):
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'commons-collections', name: 'commons-collections', version: '3.2'
+    testCompile group: 'junit', name: 'junit', version: '4.+'
+    
+     compile ('org.slf4j:slf4j-simple:1.7.6')
+     
+     
+    //Spring Reflections for test
+    testCompile("org.springframework:spring-test:4.0.2.RELEASE")
+    //Mock
+    testCompile "org.mockito:mockito-all:1.9.5"
+    // Mappers
+    compile("com.fasterxml.jackson.core:jackson-databind:2.3.1")
+    
+    compile 'com.amazonaws:aws-lambda-java-core:1.0.0'
+}
+
+
+task buildZip(type: Zip) {
+    from compileJava
+    from processResources
+    into('lib') {
+        from configurations.runtime
+    }
+}
+
+build.dependsOn buildZip
