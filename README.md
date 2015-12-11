@@ -25,9 +25,9 @@ select your .zip deployment package (hello-aws-lambda/build/distributions/hello-
 4. review your settings and create the function.
 
 //IMAGE
-<img src="hello-aws-lamdba/aws-lambda-1.png" />
+<img src="https://raw.githubusercontent.com/dhanugupta/hello-aws-lamdba/master/aws-lambda-1.png" />
 
-<img src="hello-aws-lamdba/aws-lambda-2.png" />
+<img src="https://raw.githubusercontent.com/dhanugupta/hello-aws-lamdba/master/aws-lambda-2.png" />
 
 Once your function has been created, you can test it with some sample input, in our case the following JSON string:
 
